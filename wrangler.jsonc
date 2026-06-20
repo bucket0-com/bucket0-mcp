@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bucket0-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "BUCKET_MCP", "class_name": "BucketMCP" }]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["BucketMCP"] }
+  ],
+  // The connector URL. Maps mcp.bucket0.com to this Worker (bucket0.com must be a
+  // zone on the same Cloudflare account). Remove this block to deploy on the
+  // default *.workers.dev domain and set the custom domain manually instead.
+  "routes": [
+    { "pattern": "mcp.bucket0.com", "custom_domain": true }
+  ]
+}
