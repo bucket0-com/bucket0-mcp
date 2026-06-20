@@ -66,7 +66,21 @@ export class AgentBucketClient {
       const detail = await res.text().catch(() => "");
       throw new Error(`${res.status}: ${detail || "download failed"}`);
     }
-    return res.text();
+    // Guard against dumping huge or binary payloads into the agent context
+    // (and against unbounded res.text() on a Worker's 128 MB memory limit).
+    const MAX_INLINE = 256 * 1024; // 256 KB
+    const type = res.headers.get("content-type") || "";
+    const length = Number(res.headers.get("content-length") || "0");
+    const isText =
+      type === "" || /^(text\/|application\/(json|xml|x-yaml|yaml|csv|javascript|typescript))/i.test(type);
+    if (length > MAX_INLINE) {
+      return `"${path}" is ${length} bytes — too large to return inline (max ${MAX_INLINE}). Download it directly instead.`;
+    }
+    if (!isText) {
+      return `"${path}" is ${type || "binary"} (${length} bytes) — not returned as text. Download it directly instead.`;
+    }
+    const text = await res.text();
+    return text.length > MAX_INLINE ? text.slice(0, MAX_INLINE) + "\n…[truncated]" : text;
   }
 
   async listFiles(folder?: string, page = 1) {
