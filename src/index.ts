@@ -28,7 +28,7 @@ const DEFAULT_BASE = "https://bucket0.com/api/agent-bucket";
 export class BucketMCP extends McpAgent<Env, unknown, Props> {
   server = new McpServer({
     name: "agentbucket",
-    version: "0.2.0",
+    version: "0.3.0",
     title: "AgentBucket",
     websiteUrl: "https://bucket0.com",
     icons: [{ src: "https://mcp.bucket0.com/icon.svg", mimeType: "image/svg+xml", sizes: ["any"] }],
