@@ -11,6 +11,15 @@
   "migrations": [
     { "tag": "v1", "new_sqlite_classes": ["BucketMCP"] }
   ],
+  // OAuth token/grant/client storage. Create with:
+  //   wrangler kv namespace create OAUTH_KV
+  // then paste the id below.
+  "kv_namespaces": [
+    { "binding": "OAUTH_KV", "id": "141b916a751c4b14a75560b3c1a48473" }
+  ],
+  "vars": {
+    "BUCKET0_WEB_URL": "https://bucket0.com"
+  },
   // The connector URL. Maps mcp.bucket0.com to this Worker (bucket0.com must be a
   // zone on the same Cloudflare account). Remove this block to deploy on the
   // default *.workers.dev domain and set the custom domain manually instead.

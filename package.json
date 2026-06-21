@@ -1,6 +1,6 @@
 {
   "name": "bucket0-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Remote MCP server (Cloudflare Worker) for Bucket0 AgentBucket — a file system with semantic memory for AI agents, connectable from Claude, ChatGPT, and other MCP hosts.",
@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^0.8.1",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "agents": "^0.16.2",
     "zod": "^4.1.8"
